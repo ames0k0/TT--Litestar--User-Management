@@ -1,0 +1,49 @@
+Тестовое задание: Разработка REST API для управления пользователями
+Цель:
+Создать REST API на базе LiteStar (Python 3.12) с CRUD-операциями для таблицы user в PostgreSQL.
+
+API должен поддерживать:
+Свагер
+Создание пользователя.
+Получение списка пользователей.
+Получение данных одного пользователя.
+Обновление данных пользователя.
+Удаление пользователя.
+
+Стек технологий:
+Backend: LiteStar (версия 2.x).
+База данных: PostgreSQL + Advanced-SQLAlchemy.
+Инфраструктура: Docker.
+4.кетный менеджер: Poetry 1.8.3.
+бования к таблице user
+
+таблица user:
+id BIGINT PRIMARY KEY, автоинкремент
+name
+surname
+password
+created_at TIMESTAMP UTC-0
+updated_at TIMESTAMP UTC-0
+
+Настроенные зависимости:
+python = "^3.12"
+python-dotenv = "^1"
+litestar = { extras = ["standard"], version = "^2" }
+litestar-granian = "^0"
+litestar-asyncpg = "^0"
+advanced-alchemy = "^0.20"
+msgspec = "^0.18.6"
+
+Как отправить решение:
+Выложите код в публичный репозиторий на GitHub.
+Пришлите ссылку на репозиторий и инструкцию по запуску в формате:
+Ссылка на GitHub: [ваша_ссылка]
+
+Инструкция:
+
+1. Клонировать репозиторий: git clone [ваша_ссылка]  
+
+2. Запустить: docker-compose up -d или uvicorn app.asgi:app --host 127.0.0.1 --port 8000 или свой способ
+3. Применить миграции: litestar database upgrade  
+
+4. Сколько ушло времени на реализацию: [Ваше время]
