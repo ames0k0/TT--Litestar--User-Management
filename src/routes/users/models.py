@@ -1,5 +1,5 @@
-from advanced_alchemy.base import BigIntAuditBase
 from sqlalchemy.orm import Mapped
+from advanced_alchemy.base import BigIntAuditBase
 
 from litestar.contrib.sqlalchemy.dto import SQLAlchemyDTO, SQLAlchemyDTOConfig
 
@@ -20,7 +20,7 @@ class User(BigIntAuditBase):
     password: Mapped[str]
 
 
-class UserDTO(SQLAlchemyDTO[User]):
+class UserReadDTO(SQLAlchemyDTO[User]):
     """User DTO"""
 
     config = SQLAlchemyDTOConfig(exclude={"password"})

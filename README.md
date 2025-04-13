@@ -1,17 +1,5 @@
 
-
-
-
-/
-
-/src
-    /schemas/
-    /models/
-    /routes
-        /users.py
-main.py
-
-
-1. Клонировать репозиторий
-
-2. 
+Start
+```bash
+litestar --app main:app run --port 8855 --reload
+```
