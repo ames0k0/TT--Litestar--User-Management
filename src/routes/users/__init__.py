@@ -1,11 +1,14 @@
 from typing import Annotated
 
-from litestar import Controller, status_codes, get, post, delete
+from litestar import Controller, get, post, delete
 from litestar.di import Provide
 from litestar.params import Parameter
-from litestar.exceptions import HTTPException
 
+from src.core import exceptions
 from . import models, schemas, repository
+
+
+# TODO: provide `user` for a given `id`
 
 
 class UsersController(Controller):
@@ -59,10 +62,7 @@ class UsersController(Controller):
     ) -> models.User:
         user = await user_repo.get_one_or_none(id=id)
         if not user:
-            raise HTTPException(
-                detail=f"No user found by id={id}",
-                status_code=status_codes.HTTP_404_NOT_FOUND,
-            )
+            raise exceptions.UserNotFound(user_id=id)
         return user
 
     @post(
@@ -72,14 +72,15 @@ class UsersController(Controller):
     async def update_one(
         self,
         user_repo: repository.UserRepository,
+        id: Annotated[
+            int,
+            Parameter(ge=1, description="Идентификатор пользователя"),
+        ],
         data: schemas.UserUpdate,
     ) -> models.User:
-        user = await user_repo.get_one_or_none(id=data.id)
+        user = await user_repo.get_one_or_none(id=id)
         if not user:
-            raise HTTPException(
-                detail=f"No user found by id={data.id}",
-                status_code=status_codes.HTTP_404_NOT_FOUND,
-            )
+            raise exceptions.UserNotFound(user_id=id)
 
         user.name = data.name
         user.surname = data.surname
@@ -97,6 +98,9 @@ class UsersController(Controller):
     async def delete_one(
         self,
         user_repo: repository.UserRepository,
-        id: int,
+        id: Annotated[
+            int,
+            Parameter(ge=1, description="Идентификатор пользователя"),
+        ],
     ) -> None:
         await user_repo.delete_where(id=id)

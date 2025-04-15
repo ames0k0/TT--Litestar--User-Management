@@ -1,6 +1,6 @@
-from typing import Annotated, Optional
+from typing import Optional
 
-from msgspec import Struct, Meta
+from msgspec import Struct
 
 
 class UserCreate(Struct):
@@ -14,7 +14,6 @@ class UserCreate(Struct):
 class UserUpdate(Struct):
     """Схема обновление данных пользователя"""
 
-    id: Annotated[int, Meta(ge=1)]
     name: str
     surname: str
     password: Optional[str] = None
