@@ -12,7 +12,7 @@ git clone \
 cd TT--Litestar--User-Management
 ```
 
-### Запуску проекта через Docker Compose
+### Запуск проекта через Docker Compose
 <details>
   <summary>Зависимости</summary>
   <pre>
@@ -124,8 +124,8 @@ docker compose up -d --build
 
 ### Остановка проекта и удаление:
 - Docker-контейнеров
-- хранилище
-- сети
+- Хранилище
+- Сети
 
 ```bash
 docker compose down --volumes
@@ -137,7 +137,7 @@ docker compose down --volumes
 <summary>Файловая структура проекта</summary>
 
 ```bash
-tree -a -I ".git|__pycache__|pgdata|data|alembic" --dirsfirst
+tree -a -I ".git|__pycache__|data|alembic" --dirsfirst
 ```
 <pre>
 .
