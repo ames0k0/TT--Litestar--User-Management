@@ -6,7 +6,8 @@ REST API для управления пользователями
 ```bash
 git clone \
   --single-branch \
-  --depth=1 https://github.com/ames0k0/TT--Litestar--User-Management
+  --depth=1 \
+  https://github.com/ames0k0/TT--Litestar--User-Management
 
 cd TT--Litestar--User-Management
 ```
@@ -28,7 +29,7 @@ docker compose up -d --build
 
 
 
-## REST методы
+## REST API методы
 #### Пользователь
 - <details>
   <summary><strong>POST /api/users/create</strong> - Создание пользователя</summary>
@@ -121,10 +122,13 @@ docker compose up -d --build
 
   </details>
 
-### Остановка проекта и удаление Docker-контейнеров и хранилище
+### Остановка проекта и удаление:
+- Docker-контейнеров
+- хранилище
+- сети
+
 ```bash
-docker compose stop
-docker compose rm --volumes
+docker compose down --volumes
 ```
 
 ---
@@ -166,14 +170,17 @@ tree -a -I ".git|__pycache__|pgdata|data|alembic" --dirsfirst
 <details>
 <summary>Использованные технологии</summary>
 
-| Название       | Ссылка                          |
-| -------------- | ------------------------------- |
-| FastAPI        | https://fastapi.tiangolo.com    |
-| Pydub          | http://pydub.com                |
-| SQLAlchemy     | https://www.sqlalchemy.org      |
-| PostgreSQL     | https://www.postgresql.org      |
-| Docker         | https://docs.docker.com         |
-| Docker Compose | https://docs.docker.com/compose |
+| Название         | Ссылка                                             |
+| ---------------- | -------------------------------------------------  |
+| Litestar         | https://litestar.dev/                              |
+| litestar-granian | https://github.com/cofin/litestar-granian          |
+| litestar-asyncpg | https://github.com/litestar-org/litestar-asyncpg   |
+| advanced-alchemy | https://docs.advanced-alchemy.litestar.dev/latest/ |
+| msgspec          | https://jcristharif.com/msgspec/                   |
+| python-dotenv    | https://pypi.org/project/python-dotenv/            |
+| PostgreSQL       | https://www.postgresql.org                         |
+| Docker           | https://docs.docker.com                            |
+| Docker Compose   | https://docs.docker.com/compose                    |
 
 </details>
 
