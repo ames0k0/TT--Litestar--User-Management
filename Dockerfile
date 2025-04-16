@@ -11,4 +11,4 @@ COPY . /code/
 
 EXPOSE 8000
 
-CMD ["litestar", "--app", "main:app", "run", "--host", "0.0.0.0"]
+CMD ["poetry", "run", "litestar", "--app", "main:app", "run", "--host", "0.0.0.0"]

@@ -173,7 +173,6 @@ tree -a -I ".git|__pycache__|pgdata|data|alembic" --dirsfirst
 | Название         | Ссылка                                             |
 | ---------------- | -------------------------------------------------  |
 | Litestar         | https://litestar.dev/                              |
-| litestar-granian | https://github.com/cofin/litestar-granian          |
 | litestar-asyncpg | https://github.com/litestar-org/litestar-asyncpg   |
 | advanced-alchemy | https://docs.advanced-alchemy.litestar.dev/latest/ |
 | msgspec          | https://jcristharif.com/msgspec/                   |
