@@ -3,6 +3,8 @@ services:
     image: postgres:17
     container_name: user_management__postgres
     environment:
+      TZ: "UTC-0"
+      PGTZ: "UTC-0"
       POSTGRES_PASSWORD: simple
       POSTGRES_DB: user_management
       POSTGRES_USER: postgres
