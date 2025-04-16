@@ -1,0 +1,33 @@
+services:
+  user_management__postgres:
+    image: postgres:17
+    container_name: user_management__postgres
+    environment:
+      POSTGRES_PASSWORD: simple
+      POSTGRES_DB: user_management
+      POSTGRES_USER: postgres
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d user_management"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    restart: unless-stopped
+  user_management__rest_api:
+    build:
+      context: .
+    container_name: user_management__rest_api
+    restart: unless-stopped
+    depends_on:
+      user_management__postgres:
+        condition: service_healthy
+    ports:
+      - 8884:8000
+
+
+volumes:
+  pgdata:
+    driver: local
