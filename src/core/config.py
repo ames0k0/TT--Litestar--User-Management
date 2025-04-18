@@ -31,9 +31,6 @@ class SQLAlchemy:
                 connection_string=self.generate_postgresql_dsn(),
                 before_send_handler="autocommit",
                 session_config=AsyncSessionConfig(expire_on_commit=False),
-                alembic_config=AlembicAsyncConfig(
-                    script_location="./alembic",
-                ),
                 create_all=True,
             ),
         )
