@@ -5,7 +5,6 @@ from litestar.plugins.sqlalchemy import (
     AsyncSessionConfig,
     SQLAlchemyAsyncConfig,
     SQLAlchemyPlugin,
-    AlembicAsyncConfig,
 )
 
 
