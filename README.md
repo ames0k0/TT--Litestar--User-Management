@@ -171,6 +171,7 @@ tree -a -I ".git|__pycache__|data|alembic" --dirsfirst
 | ---------------- | -------------------------------------------------  |
 | Litestar         | https://litestar.dev/                              |
 | litestar-asyncpg | https://github.com/litestar-org/litestar-asyncpg   |
+| litestar-granian | https://github.com/cofin/litestar-granian          |
 | advanced-alchemy | https://docs.advanced-alchemy.litestar.dev/latest/ |
 | msgspec          | https://jcristharif.com/msgspec/                   |
 | python-dotenv    | https://pypi.org/project/python-dotenv/            |

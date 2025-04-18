@@ -1,14 +1,7 @@
-from typing import Annotated
-
 from litestar import Controller, get, post, delete
 from litestar.di import Provide
-from litestar.params import Parameter
 
-from src.core import exceptions
 from . import models, schemas, repository
-
-
-# TODO: provide `user` for a given `id`
 
 
 class UsersController(Controller):
@@ -17,6 +10,7 @@ class UsersController(Controller):
     path = "/users"
     tags = ["users"]
     dependencies = {
+        "user": Provide(repository.provide_user),
         "user_repo": Provide(repository.provide_user_repo),
     }
     return_dto = models.UserReadDTO
@@ -54,15 +48,8 @@ class UsersController(Controller):
     )
     async def get_one(
         self,
-        user_repo: repository.UserRepository,
-        id: Annotated[
-            int,
-            Parameter(ge=1, description="Идентификатор пользователя"),
-        ],
+        user: models.User,
     ) -> models.User:
-        user = await user_repo.get_one_or_none(id=id)
-        if not user:
-            raise exceptions.UserNotFound(user_id=id)
         return user
 
     @post(
@@ -71,17 +58,10 @@ class UsersController(Controller):
     )
     async def update_one(
         self,
+        user: models.User,
         user_repo: repository.UserRepository,
-        id: Annotated[
-            int,
-            Parameter(ge=1, description="Идентификатор пользователя"),
-        ],
         data: schemas.UserUpdate,
     ) -> models.User:
-        user = await user_repo.get_one_or_none(id=id)
-        if not user:
-            raise exceptions.UserNotFound(user_id=id)
-
         user.name = data.name
         user.surname = data.surname
 
@@ -97,10 +77,7 @@ class UsersController(Controller):
     )
     async def delete_one(
         self,
+        user: models.User,
         user_repo: repository.UserRepository,
-        id: Annotated[
-            int,
-            Parameter(ge=1, description="Идентификатор пользователя"),
-        ],
     ) -> None:
-        await user_repo.delete_where(id=id)
+        await user_repo.delete(item_id=user.id)
