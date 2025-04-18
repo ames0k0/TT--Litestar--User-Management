@@ -30,7 +30,7 @@ docker compose up -d --build
 
 
 ## REST API методы
-#### Пользователь
+#### Пользователи
 - <details>
   <summary><strong>POST /api/users/create</strong> - Создание пользователя</summary>
 
@@ -122,16 +122,13 @@ docker compose up -d --build
 
   </details>
 
-### Остановка проекта и удаление:
-- Docker-контейнеров
-- Хранилище
-- Сети
-
-```bash
-docker compose down --volumes
-```
-
 ---
+
+### Остановка проекта и удаление:
+- Docker-образов, Docker-контейнеров, Хранилище, Сети
+```bash
+docker compose down --volumes --rmi all
+```
 
 <details>
 <summary>Файловая структура проекта</summary>
@@ -183,5 +180,4 @@ tree -a -I ".git|__pycache__|data|alembic" --dirsfirst
 
 </details>
 
----
 <p align="center"><img src="./data/Diagram.drawio.png" /></p>
