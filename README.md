@@ -123,7 +123,7 @@ docker compose up -d --build
 ### Остановка проекта и удаление:
 - Docker-образов, Docker-контейнеров, Хранилище, Сети
 ```bash
-docker compose down --volumes --rmi all
+docker compose down --volumes --rmi local
 ```
 
 <details>

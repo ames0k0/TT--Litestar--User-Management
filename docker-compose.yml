@@ -1,6 +1,6 @@
 services:
   user_management__postgres:
-    image: postgres:17
+    image: postgres
     container_name: user_management__postgres
     environment:
       TZ: "UTC-0"
