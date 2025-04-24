@@ -1,5 +1,9 @@
+from typing import Annotated
+
 from litestar import Controller, get, post, delete
 from litestar.di import Provide
+from litestar.params import Parameter
+from litestar.pagination import OffsetPagination
 
 from . import models, schemas, repository
 
@@ -35,12 +39,37 @@ class UsersController(Controller):
     @get(
         "/get_all",
         summary="Получение списка пользователей",
+        dependencies={
+            "paginator": Provide(
+                repository.UserOffsetPaginator,
+                sync_to_thread=False,
+            )
+        },
     )
     async def get_all(
         self,
-        user_repo: repository.UserRepository,
-    ) -> list[models.User]:
-        return await user_repo.list()
+        paginator: repository.UserOffsetPaginator,
+        limit: Annotated[
+            int,
+            Parameter(
+                ge=1,
+                le=100,
+                description="Количество получаемых пользователей",
+            ),
+        ],
+        offset: Annotated[
+            int,
+            Parameter(
+                ge=0,
+                default=0,
+                description="Количество пропускаемых пользователя",
+            ),
+        ],
+    ) -> OffsetPagination[models.User]:
+        return await paginator(
+            limit=limit,
+            offset=offset,
+        )
 
     @get(
         "/get",

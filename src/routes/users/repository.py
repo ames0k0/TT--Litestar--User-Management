@@ -1,7 +1,10 @@
-from typing import Annotated
+from typing import Annotated, cast
 
+import sqlalchemy as sa
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.engine.result import ScalarResult
 from litestar.params import Parameter
+from litestar.pagination import AbstractAsyncOffsetPaginator
 from litestar.contrib.sqlalchemy.repository import SQLAlchemyAsyncRepository
 
 from src.core import exceptions
@@ -9,13 +12,13 @@ from . import models
 
 
 class UserRepository(SQLAlchemyAsyncRepository[models.User]):
-    """User repository."""
+    """User repository"""
 
     model_type = models.User
 
 
 async def provide_user_repo(db_session: AsyncSession) -> UserRepository:
-    """This provides the default User repository."""
+    """This provides the default User repository"""
 
     return UserRepository(session=db_session)
 
@@ -34,3 +37,29 @@ async def provide_user(
         raise exceptions.UserNotFound(user_id=id)
 
     return user
+
+
+class UserOffsetPaginator(AbstractAsyncOffsetPaginator[models.User]):
+    """User paginator"""
+
+    def __init__(self, db_session: AsyncSession) -> None:
+        self.db_session = db_session
+
+    async def get_total(self) -> int:
+        return cast(
+            "int",
+            await self.db_session.scalar(
+                sa.select(
+                    sa.func.count(
+                        models.User.id,
+                    )
+                )
+            ),
+        )
+
+    async def get_items(self, limit: int, offset: int) -> list[models.User]:
+        # FIXME: new version will fix `offset + limit`
+        users: ScalarResult = await self.db_session.scalars(
+            sa.select(models.User).slice(offset, offset + limit)
+        )
+        return list(users.all())
