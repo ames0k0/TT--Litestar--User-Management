@@ -130,10 +130,12 @@ docker compose down --volumes --rmi local
 <summary>Файловая структура проекта</summary>
 
 ```bash
-tree -a -I ".git|__pycache__|data|alembic" --dirsfirst
+tree -a -I ".git|__pycache__|data|migrations" --dirsfirst
 ```
 <pre>
 .
+├── scripts
+│   └── db_upgrade.sh
 ├── src
 │   ├── core
 │   │   ├── config.py
