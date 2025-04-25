@@ -58,7 +58,6 @@ class UserOffsetPaginator(AbstractAsyncOffsetPaginator[models.User]):
         )
 
     async def get_items(self, limit: int, offset: int) -> list[models.User]:
-        # FIXME: new version will fix `offset + limit`
         users: ScalarResult = await self.db_session.scalars(
             sa.select(models.User).slice(offset, offset + limit)
         )
