@@ -140,25 +140,21 @@ docker compose down --volumes --rmi local
 <summary>Файловая структура проекта</summary>
 
 ```bash
-tree -a -I ".git|__pycache__|data|migrations" --dirsfirst
+tree -a -I ".git|__pycache__|data|migrations|__init__.py" --dirsfirst
 ```
 <pre>
-.
 ├── scripts
 │   └── db_upgrade.sh
 ├── src
 │   ├── core
 │   │   ├── config.py
-│   │   ├── exceptions.py
-│   │   └── __init__.py
-│   ├── routes
-│   │   ├── users
-│   │   │   ├── __init__.py
-│   │   │   ├── models.py
-│   │   │   ├── repository.py
-│   │   │   └── schemas.py
-│   │   └── __init__.py
-│   └── __init__.py
+│   │   └── exceptions.py
+│   └── routes
+│       └── users
+│           ├── controller.py
+│           ├── models.py
+│           ├── providers.py
+│           └── schemas.py
 ├── alembic.ini
 ├── docker-compose.yml
 ├── Dockerfile

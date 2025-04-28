@@ -1,4 +1,4 @@
-from . import users
+from .users.controller import UsersController
 
 
-route_handlers = (users.UsersController,)
+route_handlers = (UsersController,)

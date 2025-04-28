@@ -1,6 +1,6 @@
 from typing import Annotated, cast
 
-import sqlalchemy as sa
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.engine.result import ScalarResult
 from litestar.params import Parameter
@@ -49,8 +49,8 @@ class UserOffsetPaginator(AbstractAsyncOffsetPaginator[models.User]):
         return cast(
             "int",
             await self.db_session.scalar(
-                sa.select(
-                    sa.func.count(
+                select(
+                    func.count(
                         models.User.id,
                     )
                 )
@@ -59,6 +59,6 @@ class UserOffsetPaginator(AbstractAsyncOffsetPaginator[models.User]):
 
     async def get_items(self, limit: int, offset: int) -> list[models.User]:
         users: ScalarResult = await self.db_session.scalars(
-            sa.select(models.User).slice(offset, offset + limit)
+            select(models.User).slice(offset, offset + limit)
         )
         return list(users.all())
